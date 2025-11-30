@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Full Stack Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-10">
+    <h1 class="text-2xl font-bold mb-5">Insert a project, if you want!</h1>
+
+    <form method="post" class="mb-5">
+        {% csrf_token %}
+        <input name="title" placeholder="Title" class="p-2 border rounded mr-2">
+        <input name="description" placeholder="Description" class="p-2 border rounded mr-2">
+        <button class="bg-blue-600 text-white px-3 py-1 rounded">Add</button>
+    </form>
+
+    <ul>
+        {% for project in projects %}
+            <li class="mb-2 p-2 bg-white rounded shadow">
+                <strong>{{ project.title }}</strong> — {{ project.description }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
