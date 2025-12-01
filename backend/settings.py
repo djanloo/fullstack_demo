@@ -25,8 +25,10 @@ SECRET_KEY = 'django-insecure-unxiv&&70$8%64e=2672249-$y(a56oi!xzuwjd^i1gr+11&!e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False #True
 
-ALLOWED_HOSTS = ['fullstack-demo-e1xs.onrender.com']
-
+if DEBUG:
+    ALLOWED_HOSTS = ["*", "localhost", "127.0.0.1"]
+else:
+    ALLOWED_HOSTS = ["djanloo.xyz", "www.djanloo.xyz", 'fullstack-demo-e1xs.onrender.com']
 
 # Application definition
 
@@ -73,16 +75,30 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djanloodb',
-        'USER': 'djanloo',
-        'PASSWORD': 'culoculo',
-        'HOST': 'localhost',
-        'PORT': '5432',
+import os
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'djanloodb',
+            'USER': 'djanloo',
+            'PASSWORD': 'culoculo',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
     }
-}
+else: 
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ.get("DB_NAME"),
+            "USER": os.environ.get("DB_USER"),
+            "PASSWORD": os.environ.get("DB_PASSWORD"),
+            "HOST": os.environ.get("DB_HOST"),
+            "PORT": os.environ.get("DB_PORT"),
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
