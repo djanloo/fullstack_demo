@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-unxiv&&70$8%64e=2672249-$y(a56oi!xzuwjd^i1gr+11&!e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False #True
+DEBUG = True #True
 
 if DEBUG:
     ALLOWED_HOSTS = ["*", "localhost", "127.0.0.1"]
@@ -77,15 +77,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 import os
 if DEBUG:
+    import dj_database_url
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'djanloodb',
-            'USER': 'djanloo',
-            'PASSWORD': 'culoculo',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
+        'default': dj_database_url.parse(os.environ.get('DB_EXT_URL'))
     }
 else: 
     DATABASES = {
